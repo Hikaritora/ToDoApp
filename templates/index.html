@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>To-Do App</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>To-Do List</h1>
+
+      <form method="post" action="/add-task" novalidate>
+        <div class="form-group">
+          <label for="task-title">Task Title</label>
+          <input type="text" class="form-control" id="task-title" name="task-title" required>
+        </div>
+        <div class="form-group">
+          <label for="due-date">Due Date</label>
+          <input type="date" class="form-control" id="due-date" name="due-date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+      </form>
+
+
+      <br><br>
+      <h3>Tasks</h3>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>{% if task.due_date %}{{ task.due_date }}{% else %}None{% endif %}</td>
+            <td>
+              <div class="btn-group">
+                <form method="POST" action="/complete-task/{{ task.id }}" style="display: inline-block; margin-right: 5px;">
+                  <button type="submit" class="btn btn-success">Complete</button>
+                </form>
+                <form method="POST" action="/delete-task/{{ task.id }}" style="display: inline-block; margin-right: 5px;">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+<br><br>
+<!-- completed tasks table -->
+<h3>Completed Tasks</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in completed_tasks %}
+      <tr>
+        <td>{{ task.title }}</td>
+        <td>
+          <form method="post" action="/delete-task/{{ task.id }}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<br><br><br>
+  <div class="float-right">
+      <form method="POST" action="/logout">
+          <button type="submit" class="btn btn-warning">Log out</button>
+      </form>
+    </div>
+</div>
