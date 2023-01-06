@@ -4,8 +4,6 @@ This To-Do app is a web application that allows users to manage their tasks and 
 
 The app is built using the Flask framework in Python and uses a SQLite database to store the tasks. The front-end is built using HTML, CSS, and Bootstrap.
 
-![Imgur Image](https://imgur.com/a/h2HJhiR)
-
 Here is a list that describes all of the files in the project:
 
 #### app.py
